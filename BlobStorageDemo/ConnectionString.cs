@@ -8,6 +8,7 @@ namespace BlobStorageDemo
     /// StorageAccountName - key in web.config
     /// StorageAccountKey - key in web.config
     /// </summary>
+   
     public static class ConnectionString
     {
         static string account = CloudConfigurationManager.GetSetting("StorageAccountName");
