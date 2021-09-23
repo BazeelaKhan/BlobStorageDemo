@@ -16,14 +16,6 @@ namespace BlobStorageDemo.Controllers
         {
             return View();
         }
-        public void Add()
-        {
-
-        }
-        public string GetName()
-        {
-            return "Hello";
-        }
         /// <summary>
         /// Upload Method is used to check the image already exists or not if not then 
         /// upload the image to normal-size container
