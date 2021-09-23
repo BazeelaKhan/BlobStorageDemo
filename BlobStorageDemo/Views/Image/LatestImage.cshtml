@@ -1,0 +1,15 @@
+﻿@model string
+@{
+    ViewBag.Title = "Latest Image";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<!--
+UI- Display the images - original and thumbnail    
+-->
+<h3> Newly Uploaded Image </h3>
+<br />
+<h2>Original image</h2>
+<img src="@ViewBag.LatestImage" title="Latest Uploaded" />
+<h2>Thumbnail</h2>
+<img src="@ViewBag.Thumbnail" title="Thumbnail" />
