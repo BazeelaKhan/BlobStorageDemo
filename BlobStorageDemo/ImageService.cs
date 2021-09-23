@@ -31,7 +31,7 @@ namespace BlobStorageDemo
 
                 string imageName = imageToUpload.FileName;
                 BlobClient blob = container.GetBlobClient(imageName);
-             
+
                 await blob.UploadAsync(imageToUpload.InputStream,
                 new BlobHttpHeaders()
                 {
