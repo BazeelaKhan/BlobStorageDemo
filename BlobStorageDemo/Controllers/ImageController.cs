@@ -11,6 +11,7 @@ namespace BlobStorageDemo.Controllers
     {
         ImageService imageService = new ImageService();
 
+
         // GET: Image  
         public ActionResult Upload()
         {
