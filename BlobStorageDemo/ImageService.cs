@@ -30,14 +30,19 @@ namespace BlobStorageDemo
                 await container.CreateIfNotExistsAsync();
 
                 string imageName = imageToUpload.FileName;
-                BlobClient blob = container.GetBlobClient(imageName);
+                string FileExtension = imageName.Substring(imageName.LastIndexOf('.') + 1).ToLower();
 
-                await blob.UploadAsync(imageToUpload.InputStream,
-                new BlobHttpHeaders()
+                if (FileExtension == "jpeg" || FileExtension == "png" || FileExtension == "jpg")
                 {
-                    ContentType = imageToUpload.ContentType
-                });
-                imageFullPath = blob.Uri.ToString();
+                    BlobClient blob = container.GetBlobClient(imageName);
+
+                    await blob.UploadAsync(imageToUpload.InputStream,
+                    new BlobHttpHeaders()
+                    {
+                        ContentType = imageToUpload.ContentType
+                    });
+                    imageFullPath = blob.Uri.ToString();
+                }
             }
             catch (Exception ex)
             {

@@ -38,15 +38,22 @@ namespace BlobStorageDemo.Controllers
             else
             {
                 var imageUrl = await imageService.UploadImageAsync(photo);
+                if (imageUrl == null)
+                {
+                    TempData["Errormsg"] = "Please upload image or file of extension .jpg, .jpeg or .png";
+                    return RedirectToAction("Upload");
+                }
+                else
+                {
+                    TempData["LatestImage"] = imageUrl.ToString();
 
-                TempData["LatestImage"] = imageUrl.ToString();
+                    string str = imageUrl.ToString();
+                    string str2 = str.Replace("normal-size", "reduced-size");
 
-                string str = imageUrl.ToString();
-                string str2 = str.Replace("normal-size", "reduced-size");
+                    TempData["Thumbnail"] = str2;
 
-                TempData["Thumbnail"] = str2;
-
-                return RedirectToAction("LatestImage");
+                    return RedirectToAction("LatestImage");
+                }
             }
         }
         /// <summary>
