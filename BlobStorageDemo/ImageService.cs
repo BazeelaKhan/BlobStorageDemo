@@ -60,7 +60,6 @@ namespace BlobStorageDemo
             }
             try
             {
-
                 BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
                 BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");
                 await container.CreateIfNotExistsAsync();
