@@ -66,11 +66,11 @@ namespace BlobStorageDemo
 
                 string imageName = imageToUpload.FileName;
                 BlobClient blob = container.GetBlobClient(imageName);
-                var str = blobServiceClient.GetBlobContainerClient("normal-size").GetBlobClient(imageName);
+                //var str = blobServiceClient.GetBlobContainerClient("normal-size").GetBlobClient(imageName);
 
-                if (str.Exists())
+                if (blob.Exists())
                 {
-                    imageFullPath = str.Uri.ToString();
+                    imageFullPath = blob.Uri.ToString();
                     return imageFullPath;
                 }
 
