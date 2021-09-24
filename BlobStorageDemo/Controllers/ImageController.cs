@@ -59,7 +59,7 @@ namespace BlobStorageDemo.Controllers
             if (TempData["LatestImage"] != null && TempData["Thumbnail"] != null)
             {
                 ViewBag.LatestImage = Convert.ToString(TempData["LatestImage"]);
-                Task.WaitAll(Task.Delay(7000));
+                Task.WaitAll(Task.Delay(5000));
                 ViewBag.Thumbnail = Convert.ToString(TempData["Thumbnail"]);
                
             }
