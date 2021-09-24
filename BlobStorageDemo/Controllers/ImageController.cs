@@ -73,13 +73,10 @@ namespace BlobStorageDemo.Controllers
         /// <returns></returns>
         public ActionResult AlreadyExist()
         {
-
-            if (TempData["Exist"] != null )
+            if (TempData["Exist"] != null)
             {
                 ViewBag.Exist = Convert.ToString(TempData["Exist"]);
-                //Task.WaitAll(Task.Delay(4000));
-                ViewBag.Thumbnail = Convert.ToString(TempData["Exist"]).Replace("normal-size","reduced-size");
-
+                ViewBag.Thumbnail = Convert.ToString(TempData["Exist"]).Replace("normal-size", "reduced-size");
             }
 
             return View();
