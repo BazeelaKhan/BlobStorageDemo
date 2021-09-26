@@ -10,6 +10,42 @@ namespace BlobStorageDemo
     public class ImageService
     {
         /// <summary>
+        /// Checks Whether the image already exixts in Blob container
+        /// </summary>
+        /// <param name="imageToUpload"></param>
+        /// <returns></returns>
+        public async Task<string> IsImageExists(HttpPostedFileBase imageToUpload)
+        {
+            String imageFullPath = null;
+            if (imageToUpload == null || imageToUpload.ContentLength == 0)
+            {
+                return null;
+            }
+            try
+            {
+                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");
+                await container.CreateIfNotExistsAsync();
+
+                string imageName = imageToUpload.FileName;
+                BlobClient blob = container.GetBlobClient(imageName);
+                //var str = blobServiceClient.GetBlobContainerClient("normal-size").GetBlobClient(imageName);
+
+                if (blob.Exists())
+                {
+                    imageFullPath = blob.Uri.ToString();
+                    return imageFullPath;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
+        /// <summary>
         /// This method will create the container if not exists and then upload the image into the container
         /// after uploading the image it generates the string of ImagePath 
         /// </summary>
@@ -42,7 +78,7 @@ namespace BlobStorageDemo
                         ContentType = imageToUpload.ContentType
                     });
                     imageFullPath = blob.Uri.ToString();
-                }
+                } 
             }
             catch (Exception ex)
             {
@@ -51,12 +87,7 @@ namespace BlobStorageDemo
             return imageFullPath;
         }
 
-        /// <summary>
-        /// Checks Whether the image already exixts in Blob container
-        /// </summary>
-        /// <param name="imageToUpload"></param>
-        /// <returns></returns>
-        public async Task<string> IsImageExists(HttpPostedFileBase imageToUpload)
+        public async Task<string> DownloadThumbnail(HttpPostedFileBase imageToUpload)
         {
             String imageFullPath = null;
             if (imageToUpload == null || imageToUpload.ContentLength == 0)
@@ -66,7 +97,7 @@ namespace BlobStorageDemo
             try
             {
                 BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
-                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("reduced-size");
                 await container.CreateIfNotExistsAsync();
 
                 string imageName = imageToUpload.FileName;

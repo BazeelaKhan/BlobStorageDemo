@@ -32,6 +32,8 @@ namespace BlobStorageDemo.Controllers
             if (check != null)
             {
                 TempData["Exist"] = check.ToString();
+                var thumbUrl = await imageService.DownloadThumbnail(photo);
+                TempData["Thumbnail"] = thumbUrl.ToString();
                 return RedirectToAction("AlreadyExist");
 
             }
@@ -45,13 +47,9 @@ namespace BlobStorageDemo.Controllers
                 }
                 else
                 {
-                    TempData["LatestImage"] = imageUrl.ToString();
-
-                    string str = imageUrl.ToString();
-                    string str2 = str.Replace("normal-size", "reduced-size");
-
-                    TempData["Thumbnail"] = str2;
-
+                    TempData["LatestImage"] = imageUrl.ToString();                   
+                    var thumbUrl = await imageService.DownloadThumbnail(photo);
+                    TempData["Thumbnail"] = thumbUrl.ToString();
                     return RedirectToAction("LatestImage");
                 }
             }
@@ -67,7 +65,6 @@ namespace BlobStorageDemo.Controllers
             if (TempData["LatestImage"] != null && TempData["Thumbnail"] != null)
             {
                 ViewBag.LatestImage = Convert.ToString(TempData["LatestImage"]);
-                Task.WaitAll(Task.Delay(5000));
                 ViewBag.Thumbnail = Convert.ToString(TempData["Thumbnail"]);
                
             }
@@ -84,7 +81,7 @@ namespace BlobStorageDemo.Controllers
             if (TempData["Exist"] != null)
             {
                 ViewBag.Exist = Convert.ToString(TempData["Exist"]);
-                ViewBag.Thumbnail = Convert.ToString(TempData["Exist"]).Replace("normal-size", "reduced-size");
+                ViewBag.Thumbnail = Convert.ToString(TempData["Thumbnail"]);
             }
 
             return View();
