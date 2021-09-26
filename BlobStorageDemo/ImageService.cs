@@ -90,10 +90,6 @@ namespace BlobStorageDemo
         public async Task<string> DownloadThumbnail(HttpPostedFileBase imageToUpload)
         {
             String imageFullPath = null;
-            if (imageToUpload == null || imageToUpload.ContentLength == 0)
-            {
-                return null;
-            }
             try
             {
                 BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
@@ -103,13 +99,8 @@ namespace BlobStorageDemo
                 string imageName = imageToUpload.FileName;
                 BlobClient blob = container.GetBlobClient(imageName);
                 //var str = blobServiceClient.GetBlobContainerClient("normal-size").GetBlobClient(imageName);
-
-                if (blob.Exists())
-                {
-                    imageFullPath = blob.Uri.ToString();
-                    return imageFullPath;
-                }
-
+                imageFullPath = blob.Uri.ToString();
+                return imageFullPath;
             }
             catch (Exception ex)
             {

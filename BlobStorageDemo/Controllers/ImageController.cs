@@ -43,11 +43,12 @@ namespace BlobStorageDemo.Controllers
                 if (imageUrl == null)
                 {
                     TempData["Errormsg"] = "Please upload image or file of extension .jpg, .jpeg or .png";
-                    return RedirectToAction("Upload");
+                    return View("Upload");
                 }
                 else
                 {
-                    TempData["LatestImage"] = imageUrl.ToString();                   
+                    TempData["LatestImage"] = imageUrl.ToString();
+                    Task.WaitAll(Task.Delay(5000));
                     var thumbUrl = await imageService.DownloadThumbnail(photo);
                     TempData["Thumbnail"] = thumbUrl.ToString();
                     return RedirectToAction("LatestImage");
@@ -78,7 +79,7 @@ namespace BlobStorageDemo.Controllers
         /// <returns></returns>
         public ActionResult AlreadyExist()
         {
-            if (TempData["Exist"] != null)
+            if (TempData["Exist"] != null && TempData["Thumbnail"]!=null)
             {
                 ViewBag.Exist = Convert.ToString(TempData["Exist"]);
                 ViewBag.Thumbnail = Convert.ToString(TempData["Thumbnail"]);
