@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobStorageDemo", "BlobStorageDemo\BlobStorageDemo.csproj", "{8AB1FFED-85F8-476A-917F-CE7BB99E031C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{76E58E37-4577-4535-8DB3-6CECB2855A37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8AB1FFED-85F8-476A-917F-CE7BB99E031C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB1FFED-85F8-476A-917F-CE7BB99E031C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB1FFED-85F8-476A-917F-CE7BB99E031C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E58E37-4577-4535-8DB3-6CECB2855A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E58E37-4577-4535-8DB3-6CECB2855A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E58E37-4577-4535-8DB3-6CECB2855A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E58E37-4577-4535-8DB3-6CECB2855A37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
