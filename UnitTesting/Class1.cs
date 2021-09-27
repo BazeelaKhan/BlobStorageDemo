@@ -22,7 +22,7 @@ namespace UnitTesting
             ImageService imageService = new ImageService();
             HttpPostedFileBase httpPostedFile = Mock.Of<HttpPostedFileBase>();
             var mock = Mock.Get(httpPostedFile);
-            mock.Setup(_ => _.FileName).Returns("Movie.jpg");
+            mock.Setup(_ => _.FileName).Returns("Movie");
 
             //Act
             var result = await imageService.IsImageExists(httpPostedFile);
@@ -30,25 +30,35 @@ namespace UnitTesting
             //Assert
 
             Assert.AreEqual(null, result);
-            
+
         }
- 
+
         [Test]
-        public async Task UploadImageAsync_WrongExtension_ReturnsNull()
+        public void CheckExtension_CorrectExtension_returnsTrue()
         {
-            //Arrange
+            //Arrange 
             ImageService imageService = new ImageService();
-            HttpPostedFileBase httpPostedFile = Mock.Of<HttpPostedFileBase>();
-            var mock = Mock.Get(httpPostedFile);
-            mock.Setup(_ => _.FileName).Returns("abc.txt");
+            String fileExtension = "jpeg";
 
-            //Act
-            var result = await imageService.UploadImageAsync(httpPostedFile);
+            //Act 
+            var result =  imageService.CheckExtension(fileExtension);
 
-            //Assert
+            //Assert 
+            Assert.AreEqual(true,result);
 
-            Assert.AreEqual(null, result);
+        }
+        [Test]
+        public void CheckExtension_CorrectExtension_returnsFalse()
+        {
+            //Arrange 
+            ImageService imageService = new ImageService();
+            String fileExtension = "txt";
 
+            //Act 
+            var result = imageService.CheckExtension(fileExtension);
+
+            //Assert 
+            Assert.AreEqual(false, result);
 
         }
     }
