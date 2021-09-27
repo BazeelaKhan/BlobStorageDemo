@@ -96,7 +96,15 @@ namespace BlobStorageDemo
             return imageFullPath;
         }
 
-        public async Task<string> DownloadThumbnail(HttpPostedFileBase imageToUpload)
+        public string Demo (HttpPostedFileBase image)
+        {
+            String url = null;
+            string filename = image.FileName;
+            url = "http://normal-size/" + filename;
+            return url;
+        }
+
+        public async Task<string> DownloadThumbnail(HttpPostedFileBase imageToDownload)
         {
             String imageFullPath = null;
             try
@@ -105,7 +113,7 @@ namespace BlobStorageDemo
                 BlobContainerClient container = blobServiceClient.GetBlobContainerClient("reduced-size");
                 await container.CreateIfNotExistsAsync();
 
-                string imageName = imageToUpload.FileName;
+                string imageName = imageToDownload.FileName;
                 BlobClient blob = container.GetBlobClient(imageName);
                 //var str = blobServiceClient.GetBlobContainerClient("normal-size").GetBlobClient(imageName);
                 imageFullPath = blob.Uri.ToString();
