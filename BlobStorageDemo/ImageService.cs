@@ -17,7 +17,11 @@ namespace BlobStorageDemo
         public async Task<string> IsImageExists(HttpPostedFileBase imageToUpload)
         {
             String imageFullPath = null;
-    
+            if (imageToUpload == null || imageToUpload.ContentLength == 0)
+            {
+                return null;
+            }
+
             try
             {
                 BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
@@ -59,7 +63,7 @@ namespace BlobStorageDemo
             string imageFullPath = null;
             if (imageToUpload == null || imageToUpload.ContentLength == 0)
             {
-                return "asdfasdf";
+                return null;
             }
             try
             {

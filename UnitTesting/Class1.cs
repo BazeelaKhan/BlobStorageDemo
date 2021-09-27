@@ -11,8 +11,9 @@ using NUnit;
 using NUnit.Framework;
 
 namespace UnitTesting
-{   
-    [TestFixture]
+{
+    
+[TestFixture]
     public class Class1
     {
         [Test]
@@ -20,12 +21,15 @@ namespace UnitTesting
         {
             //Arrange
             ImageService imageService = new ImageService();
-            HttpPostedFileBase httpPostedFile = Mock.Of<HttpPostedFileBase>();
-            var mock = Mock.Get(httpPostedFile);
-            mock.Setup(_ => _.FileName).Returns("Movie");
-
+          
+            byte[] byteBuffer = new Byte[10];
+            Random rnd = new Random();
+            rnd.NextBytes(byteBuffer);
+            System.IO.MemoryStream testStream = new System.IO.MemoryStream(byteBuffer);
+            var TestImageFile = new MyTestPostedFileBase(testStream, "images/png", "test-file.png");
+           
             //Act
-            var result = await imageService.IsImageExists(httpPostedFile);
+            var result = await imageService.IsImageExists(TestImageFile);
 
             //Assert
 
@@ -38,10 +42,12 @@ namespace UnitTesting
         {
             //Arrange 
             ImageService imageService = new ImageService();
-            String fileExtension = "jpeg";
-
+            
+            string fileName = @"/Users/Bazeela_Khan/Downloads/Books.jpg";
+            string FileExtension = fileName.Substring(fileName.LastIndexOf('.') + 1).ToLower();
+       
             //Act 
-            var result =  imageService.CheckExtension(fileExtension);
+            var result =  imageService.CheckExtension(FileExtension);
 
             //Assert 
             Assert.AreEqual(true,result);
@@ -52,10 +58,11 @@ namespace UnitTesting
         {
             //Arrange 
             ImageService imageService = new ImageService();
-            String fileExtension = "txt";
+            string fileName = @"/Users/Bazeela_Khan/Downloads/DemoTest.txt";
+            string FileExtension = fileName.Substring(fileName.LastIndexOf('.') + 1).ToLower();
 
             //Act 
-            var result = imageService.CheckExtension(fileExtension);
+            var result = imageService.CheckExtension(FileExtension);
 
             //Assert 
             Assert.AreEqual(false, result);
