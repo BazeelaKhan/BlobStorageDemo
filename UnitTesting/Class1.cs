@@ -20,15 +20,15 @@ namespace UnitTesting
         public void Demo_Check_URI()
         {
             ImageService imageService = new ImageService();
-            byte[] byteBuffer = new Byte[10];
-            Random rnd = new Random();
-            rnd.NextBytes(byteBuffer);
-            System.IO.MemoryStream testStream = new System.IO.MemoryStream(byteBuffer);
-            var TestImageFile = new MyTestPostedFileBase(testStream, "images/png", "test-file.png");
+          
+            string filePath = Path.GetFullPath(@"testfiles\testimage.jpg");
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            var TestImageFile = new MyTestPostedFileBase(fileStream, "images/jpg", "testimage.jpg");
 
             var result = imageService.Demo(TestImageFile);
 
-            Assert.AreEqual("http://normal-size/test-file.png", result);
+
+            Assert.AreEqual("http://normal-size/testimage.jpg", result);
 
         }
         // Not work because of Subscription Issue.
@@ -58,13 +58,11 @@ namespace UnitTesting
         {
             //Arrange
             ImageService imageService = new ImageService();
-          
-            byte[] byteBuffer = new Byte[10];
-            Random rnd = new Random();
-            rnd.NextBytes(byteBuffer);
-            System.IO.MemoryStream testStream = new System.IO.MemoryStream(byteBuffer);
-            var TestImageFile = new MyTestPostedFileBase(testStream, "images/png", "test-file.png");
-           
+
+            string filePath = Path.GetFullPath(@"testfiles\Mountain.png");
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            var TestImageFile = new MyTestPostedFileBase(fileStream, "images/png", "Mountain.png");
+                 
             //Act
             var result = await imageService.IsImageExists(TestImageFile);
 
