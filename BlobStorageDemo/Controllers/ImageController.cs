@@ -24,7 +24,7 @@ namespace BlobStorageDemo.Controllers
         /// and pass it to the view 
         /// </summary>
         /// <param name="photo"></param>
-        /// <returns></returns>
+        /// <returns>view</returns>
         [HttpPost]
         public async Task<ActionResult> Upload(HttpPostedFileBase photo)
         {
@@ -59,7 +59,7 @@ namespace BlobStorageDemo.Controllers
         /// This method pass the URLs through viewbag
         /// to the view to display the original and thumbnail image
         /// </summary>
-        /// <returns></returns>
+        /// <returns>view</returns>
         public ActionResult LatestImage()
         {
 
@@ -76,7 +76,7 @@ namespace BlobStorageDemo.Controllers
         /// This method will be called if the image already exists in container 
         /// it pass the URL to the View to display the original and thumbnail image
         /// </summary>
-        /// <returns></returns>
+        /// <returns>view</returns>
         public ActionResult AlreadyExist()
         {
             if (TempData["Exist"] != null && TempData["Thumbnail"]!=null)

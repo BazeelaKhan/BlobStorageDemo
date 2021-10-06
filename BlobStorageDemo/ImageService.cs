@@ -13,7 +13,10 @@ namespace BlobStorageDemo
         /// Checks Whether the image already exixts in Blob container
         /// </summary>
         /// <param name="imageToUpload"></param>
-        /// <returns></returns>
+        /// <returns> 
+        ///           URl- if image exists
+        ///           null - if not exists
+        /// </returns>
         public async Task<string> IsImageExists(HttpPostedFileBase imageToUpload)
         {
             String imageFullPath = null;
@@ -24,8 +27,8 @@ namespace BlobStorageDemo
 
             try
             {
-                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
-                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");
+                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net"); // Connection String
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");// Container1 name 
                 await container.CreateIfNotExistsAsync();
 
                 string imageName = imageToUpload.FileName;
@@ -41,10 +44,18 @@ namespace BlobStorageDemo
             }
             catch (Exception ex)
             {
-               
+                Console.WriteLine("Exception",ex);
             }
             return null;
         }
+        /// <summary>
+        /// Method to check the correct extension of file.
+        /// </summary>
+        /// <param name="fileExtension"></param>
+        /// <returns>
+        ///          true- if extension correct
+        ///          false- if extension is incorrect
+        /// </returns>
         public bool CheckExtension(String fileExtension)
         {
             if (fileExtension == "jpeg" || fileExtension == "png" || fileExtension == "jpg")
@@ -57,7 +68,9 @@ namespace BlobStorageDemo
         /// after uploading the image it generates the string of ImagePath 
         /// </summary>
         /// <param name="imageToUpload"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///           url- image url after uploading the image
+        /// </returns>
         public async Task<string> UploadImageAsync(HttpPostedFileBase imageToUpload)
         {
             string imageFullPath = null;
@@ -68,8 +81,8 @@ namespace BlobStorageDemo
             try
             {
 
-                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
-                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size");
+                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");// Connection String of Storage Account
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("normal-size"); // Container 1 Name
                 await container.CreateIfNotExistsAsync();
                 
                     string imageName = imageToUpload.FileName;
@@ -91,7 +104,7 @@ namespace BlobStorageDemo
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("Exception", ex);
             }
             return imageFullPath;
         }
@@ -103,14 +116,18 @@ namespace BlobStorageDemo
             url = "http://normal-size/" + filename;
             return url;
         }
-
+        /// <summary>
+        /// Method to download the thumbnail image.
+        /// </summary>
+        /// <param name="imageToDownload"></param>
+        /// <returns> url of the thubmnail image </returns>
         public async Task<string> DownloadThumbnail(HttpPostedFileBase imageToDownload)
         {
             String imageFullPath = null;
             try
             {
-                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");
-                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("reduced-size");
+                BlobServiceClient blobServiceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=imageresizerastorage;AccountKey=lWK00MRrlv/flVxqSUg0PeVX5ZapjVDcYHyKPWdUHa8A9bY+TFulOMvhh+aR821z7OzvrMrRd66AebIzIRVSXg==;EndpointSuffix=core.windows.net");// Connection String of Storage account
+                BlobContainerClient container = blobServiceClient.GetBlobContainerClient("reduced-size");// container2 name
                 await container.CreateIfNotExistsAsync();
 
                 string imageName = imageToDownload.FileName;
@@ -121,7 +138,7 @@ namespace BlobStorageDemo
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("Exception", ex);
             }
             return null;
         }
